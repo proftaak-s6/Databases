@@ -1,0 +1,17 @@
+version: '2'
+  services:
+    db:
+    container_name: "Auth-Service_database"
+    image: "mysql:latest"
+    environment:
+      - MYSQL_DATABASE=projectdb
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_ROOT_PASSWORD=supersecret
+      - MYSQL_VERSION=8.0.15
+    volumes:
+      - ./volumes/db/init/:/docker-entrypoint-initdb.d/ # init database
+      - ./volumes/db/data/:/var/lib/mysql/              # data storage
+    ports:
+      - "9020:3306"     #Default
+    restart: unless-stopped
