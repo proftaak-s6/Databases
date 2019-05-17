@@ -1,18 +1,16 @@
-version: '2'
+version: '3'
 
 services:
   db:
     container_name: "Auth-Service_database"
-    image: "mysql:latest"
+    image: "postgres:11.3-alpine"
     environment:
-      - MYSQL_DATABASE=projectdb
-      - MYSQL_USER=mysql
-      - MYSQL_PASSWORD=mysql
-      - MYSQL_ROOT_PASSWORD=supersecret
-      - MYSQL_VERSION=8.0.15
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: authentication
     volumes:
       - ./volumes/db/init/:/docker-entrypoint-initdb.d/ # init database
       - ./volumes/db/data/:/var/lib/mysql/              # data storage
     ports:
-      - "9020:3306"     #Default
+      - "9020:5432"     #Default
     restart: unless-stopped
