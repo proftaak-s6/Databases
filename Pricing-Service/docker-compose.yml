@@ -1,18 +1,14 @@
-version: '2'
+version: '3'
 
 services:
   db:
     container_name: "Pricing-Service_database"
-    image: "mysql:latest"
+    image: "mcr.microsoft.com/mssql/server"
     environment:
-      - MYSQL_DATABASE=projectdb
-      - MYSQL_USER=mysql
-      - MYSQL_PASSWORD=mysql
-      - MYSQL_ROOT_PASSWORD=supersecret
-      - MYSQL_VERSION=8.0.15
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
     volumes:
-      - ./volumes/db/init/:/docker-entrypoint-initdb.d/ # init database
-      - ./volumes/db/data/:/var/lib/mysql/              # data storage
+      - ./volumes/db/data/:/var/opt/mssql             # data storage
     ports:
       - "3300:3306"     #Default
     restart: unless-stopped
